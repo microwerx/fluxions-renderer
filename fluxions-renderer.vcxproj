@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ec0d1178-b439-454c-a52d-6a301f180b30}</ProjectGuid>
+    <ProjectGuid>{F76EAB03-3460-4D7C-B072-508560004F0F}</ProjectGuid>
     <RootNamespace>fluxionsssg</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
