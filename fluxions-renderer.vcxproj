@@ -10,6 +10,100 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\fluxions_renderer.hpp" />
+    <ClInclude Include="include\fluxions_renderer_base.hpp" />
+    <ClInclude Include="include\fluxions_renderer_config.hpp" />
+    <ClInclude Include="include\fluxions_renderer_context.hpp" />
+    <ClInclude Include="include\fluxions_renderer_framebuffer.hpp" />
+    <ClInclude Include="include\fluxions_renderer_gles30.hpp" />
+    <ClInclude Include="include\fluxions_renderer_gles30_snapshot.hpp" />
+    <ClInclude Include="include\fluxions_renderer_gpu_texture.hpp" />
+    <ClInclude Include="include\fluxions_renderer_object.hpp" />
+    <ClInclude Include="include\fluxions_renderer_program.hpp" />
+    <ClInclude Include="include\fluxions_renderer_sampler.hpp" />
+    <ClInclude Include="include\fluxions_renderer_shader.hpp" />
+    <ClInclude Include="include\fluxions_renderer_texture_2d.hpp" />
+    <ClInclude Include="include\fluxions_renderer_texture_cube.hpp" />
+    <ClInclude Include="include\fluxions_renderer_texture_object.hpp" />
+    <ClInclude Include="include\fluxions_renderer_uniform.hpp" />
+    <ClInclude Include="include\fluxions_renderer_uniform_blocks.hpp" />
+    <ClInclude Include="include\fluxions_renderer_utilities.hpp" />
+    <ClInclude Include="include\fluxions_shader_program_locations.hpp" />
+    <ClInclude Include="src\fluxions_renderer_pch.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\fluxions_renderer_config.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_context.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_framebuffer.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_gles30.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_gles30_snapshot.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_gpu_texture.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_object.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_pch.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_program.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_sampler.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_shader.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_texture_2d.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_texture_cube.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_texture_object.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_uniform_blocks.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_renderer_utilities.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="src\fluxions_shader_program_locations.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
+    </ClCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -45,11 +139,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)hatchetfish/include;$(SolutionDir)fluxions-gte/include;$(SolutionDir)fluxions-base/include;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)hatchetfish/include;$(SolutionDir)damselfish/include;$(SolutionDir)fluxions-gte/include;$(SolutionDir)fluxions-base/include;$(SolutionDir)fluxions-ssg/include;$(SolutionDir)starfish/include;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)hatchetfish/include;$(SolutionDir)fluxions-gte/include;$(SolutionDir)fluxions-base/include;$(ProjectDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)hatchetfish/include;$(SolutionDir)damselfish/include;$(SolutionDir)fluxions-gte/include;$(SolutionDir)fluxions-base/include;$(SolutionDir)fluxions-ssg/include;$(SolutionDir)starfish/include;$(ProjectDir)include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
