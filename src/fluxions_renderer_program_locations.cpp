@@ -1,14 +1,16 @@
 #include "fluxions_renderer_pch.hpp"
-#include <fluxions_shader_program_locations.hpp>
+#include <fluxions_renderer_program_locations.hpp>
+
 
 namespace Fluxions {
-	void __ShaderProgramLocations::getMap(GLuint program, std::string&& mapName, std::string&& altMtlMapName) {
+	void RendererProgramLocations::getMap(GLuint program, std::string&& mapName, std::string&& altMtlMapName) {
 		int loc1 = glGetUniformLocation(program, mapName.c_str());
 		int loc2 = glGetUniformLocation(program, (mapName + "Mix").c_str());
 		maps.push_back({ loc1, loc2, std::move(mapName), std::move(altMtlMapName) });
 	}
 
-	void __ShaderProgramLocations::getMaterialProgramLocations(RendererProgram& program) {
+
+	void RendererProgramLocations::getMaterialProgramLocations(RendererProgram& program) {
 		GLuint p = program.getProgram();
 		maps.clear();
 		getMap(p, "MapKa", "map_Ka");
@@ -29,7 +31,8 @@ namespace Fluxions {
 		getMap(p, "MapKclearcoatSheen", "map_clearcoatsheen");
 	}
 
-	//void __ShaderProgramLocations::getMaterialProgramLocations(
+
+	//void RendererProgramLocations::getMaterialProgramLocations(
 	//	RendererProgram& program) {
 	//	locations.clear();
 	//	locations["Ka"] = Ka = program.getUniformLocation("Ka");

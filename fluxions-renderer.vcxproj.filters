@@ -72,7 +72,7 @@
     <ClInclude Include="src\fluxions_renderer_pch.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\fluxions_shader_program_locations.hpp">
+    <ClInclude Include="include\fluxions_renderer_program_locations.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,7 +125,7 @@
     <ClCompile Include="src\fluxions_renderer_utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\fluxions_shader_program_locations.cpp">
+    <ClCompile Include="src\fluxions_renderer_program_locations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

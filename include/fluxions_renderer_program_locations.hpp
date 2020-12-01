@@ -1,19 +1,20 @@
-#ifndef FLUXIONS_SHADER_PROGRAM_LOCATIONS_HPP
-#define FLUXIONS_SHADER_PROGRAM_LOCATIONS_HPP
+#ifndef FLUXIONS_RENDERER_PROGRAM_LOCATIONS_HPP
+#define FLUXIONS_RENDERER_PROGRAM_LOCATIONS_HPP
 
 #include <fluxions_opengl.hpp>
 #include <fluxions_ssg_property.hpp>
 #include <fluxions_renderer_program.hpp>
 
 namespace Fluxions {
-	struct __ShaderProgramMapInfo {
+	struct RendererProgramMapInfo {
 		int mapNameLoc{ -1 };
 		int mapNameMixLoc{ -1 };
 		std::string mapName;
 		std::string altMtlMapName;
 	};
 
-	struct __ShaderProgramLocations {
+
+	struct RendererProgramLocations {
 		//using int_int = std::pair<int, int>;
 		//int_int map_Ka{ -1, -1 };
 		//int_int map_Kd{ -1, -1 };
@@ -28,9 +29,6 @@ namespace Fluxions {
 		//int_int map_Kior{ -1, -1 };
 		//int_int map_KmetallicSpecular{ -1, -1 };
 		//int_int map_KclearcoatSheen{ -1, -1 };
-
-		// {get<0>} MapName location, {get<1>} MapNameMix location, {get<2>} MapName
-		std::vector<__ShaderProgramMapInfo> maps;
 
 		//GLint Ka = -1;
 		//GLint Kd = -1;
@@ -107,6 +105,8 @@ namespace Fluxions {
 		//std::map<std::string, GLint> locations;
 
 		//SimpleAssociativePropertyList newLocationList;
+
+		std::vector<RendererProgramMapInfo> maps;
 
 		void getMap(GLuint program, std::string&& mapName, std::string&& altMtlMapName);
 		void getMaterialProgramLocations(RendererProgram& program);

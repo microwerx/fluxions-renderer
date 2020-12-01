@@ -29,7 +29,7 @@
     <ClInclude Include="include\fluxions_renderer_uniform.hpp" />
     <ClInclude Include="include\fluxions_renderer_uniform_blocks.hpp" />
     <ClInclude Include="include\fluxions_renderer_utilities.hpp" />
-    <ClInclude Include="include\fluxions_shader_program_locations.hpp" />
+    <ClInclude Include="include\fluxions_renderer_program_locations.hpp" />
     <ClInclude Include="src\fluxions_renderer_pch.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +99,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\fluxions_shader_program_locations.cpp">
+    <ClCompile Include="src\fluxions_renderer_program_locations.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fluxions_renderer_pch.hpp</PrecompiledHeaderFile>
     </ClCompile>

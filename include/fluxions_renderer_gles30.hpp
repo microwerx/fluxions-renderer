@@ -5,7 +5,7 @@
 #include <fluxions_renderer_config.hpp>
 #include <fluxions_renderer_gles30_snapshot.hpp>
 #include <fluxions_renderer_texture_cube.hpp>
-#include <fluxions_shader_program_locations.hpp>
+#include <fluxions_renderer_program_locations.hpp>
 
 namespace Fluxions {
 	class RendererContext;
@@ -143,7 +143,7 @@ namespace Fluxions {
 		//Matrix4f cameraMatrix_;
 
 		struct SCENEINFO {
-			__ShaderProgramLocations locs;
+			RendererProgramLocations locs;
 			//std::map<std::string, SimpleMap*> currentTextures;
 			unit_manager maps[MaxMaterials];
 			SimpleRenderer_GLuint renderer;
