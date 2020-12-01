@@ -294,7 +294,7 @@ namespace Fluxions {
 			unsigned i = 0;
 			for (const auto& mtl : pSSG->materials.mtls) {
 				if (i >= ssgUbMaterials.size()) break;
-				const BaseMaterial* bm = &mtl;
+				const BaseMaterial* bm = &mtl.base;
 				ssgUbMaterials.uniforms[i++] = *bm;
 			}
 			ssgUbMaterials.update();
@@ -803,7 +803,7 @@ namespace Fluxions {
 			SimpleMaterial& mtl = pSSG->materials.mtls[materialId];
 
 			bool use_renderconfig_textures = !pRendererConfig->textures.empty();
-			bool use_material_textures = !mtl.maps.empty();
+			bool use_material_textures = mtl.hasMaps();
 
 			if (use_renderconfig_textures) {
 				for (auto& [m, gput] : pRendererConfig->textures) {
@@ -827,9 +827,9 @@ namespace Fluxions {
 				if (use_material_textures) {
 					std::string mapName;
 					if (mtl.hasMap(shader_map_info.mapName))
-						mapName = mtl.maps.at(shader_map_info.mapName);
+						mapName = mtl.getMapPath(shader_map_info.mapName);
 					else if (mtl.hasMap(shader_map_info.altMtlMapName))
-						mapName = mtl.maps.at(shader_map_info.altMtlMapName);
+						mapName = mtl.getMapPath(shader_map_info.altMtlMapName);
 					else continue;
 
 					if (texture2Ds.count(mapName)) {

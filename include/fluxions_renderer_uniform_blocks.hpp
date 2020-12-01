@@ -2,6 +2,7 @@
 #define FLUXIONS_RENDERER_UNIFORM_BLOCKS_HPP
 
 #include <fluxions_ssg_base.hpp>
+#include <fluxions_base_objects.hpp>
 
 namespace Fluxions {
 	constexpr int MaxLights = 8;
