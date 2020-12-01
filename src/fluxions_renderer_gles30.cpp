@@ -437,7 +437,7 @@ namespace Fluxions {
 				surfaces.resize(mesh.Surfaces.size());
 				unsigned i = 0;
 				for (const auto& meshSurface : mesh.Surfaces) {
-					surfaces[i].mode = meshSurface.mode;
+					surfaces[i].mode = (GLenum)meshSurface.mode;
 					surfaces[i].count = meshSurface.count;
 					surfaces[i].offset = cast_to_pointer(meshSurface.first * sizeof(unsigned));
 					surfaces[i].type = type;
