@@ -25,12 +25,10 @@ namespace Fluxions {
 		// Resizes matching WxH render configurations to new sizes
 		void resize(int width, int height);
 
-		std::vector<std::string> paths;
-		bool findPath(std::string& path);
-
 		void loadShaders();
 		void loadTextures();
-		void loadMaps(const std::map<std::string, std::string>& maps_paths);
+		void loadMapsDEPRECATED(const std::map<std::string, std::string>& maps_paths);
+		void loadMaps(const SimpleMapLibrary& maps);
 		void makeFramebuffers();
 
 		// Render Configurations
@@ -95,7 +93,7 @@ namespace Fluxions {
 
 		std::string name_{ "noname RendererContext" };
 
-		std::string basepath;
+		FilePathFinder pathFinder;
 		//RenderConfigPtr pcur_renderconfig = nullptr;
 		//RenderConfig::ProgramPtr pcur_program = nullptr;
 		//std::string cur_sampler;

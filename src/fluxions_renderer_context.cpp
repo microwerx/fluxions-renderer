@@ -24,7 +24,7 @@ namespace Fluxions {
 		for (auto& ro : textureCubes) { ro.second.kill(); }
 		for (auto& ro : renderers) { ro.second.kill(); }
 
-		paths.clear();
+		pathFinder.clear();
 		rendererConfigs.clear();
 		programs.clear();
 		fbos.clear();
@@ -86,28 +86,12 @@ namespace Fluxions {
 	}
 
 	bool RendererContext::_addPath(const std::string& path) {
-		auto it = std::find(paths.begin(), paths.end(), path);
-		if (it == paths.end()) {
-			FilePathInfo fpi(path);
-			if (fpi.notFound()) {
-				fpi.reset(basepath + path);
-			}
-			if (fpi.notFound()) {
-				return false;
-			}
-			HFLOGINFO("Path added \"%s\"", fpi.shortestPathC());
-			paths.push_back(fpi.shortestPath());
-		}
-		return false;
+		return pathFinder.push(path);
 	}
 
 	bool RendererContext::loadConfig(const std::string& filename) {
 		HFLOGDEBUG("Loading render config '%s'", filename.c_str());
-		FilePathInfo fpi(filename);
-		if (fpi.notFound())
-			return false;
-		basepath = fpi.parentPath();
-		_addPath(basepath);
+		pathFinder.push(filename);
 
 		std::ifstream fin(filename);
 		if (!fin)
@@ -285,15 +269,6 @@ namespace Fluxions {
 		glEnd();
 	}
 
-	bool RendererContext::findPath(std::string& path) {
-		FilePathInfo fpi(path, paths);
-		if (fpi.notFound()) {
-			HFLOGERROR("file '%s' not found", fpi.shortestPathC());
-			return false;
-		}
-		return true;
-	}
-
 	void RendererContext::loadShaders() {
 		HFLOGINFO("Loading shaders from renderconfig");
 		for (auto& [k, p] : programs) {
@@ -326,7 +301,7 @@ namespace Fluxions {
 		}
 	}
 
-	void RendererContext::loadMaps(const std::map<std::string, std::string>& maps_paths) {
+	void RendererContext::loadMapsDEPRECATED(const std::map<std::string, std::string>& maps_paths) {
 		for (auto& [map, path] : maps_paths) {
 			if (texture2Ds.count(map)) continue;
 			texture2Ds[map].init(map, this);
@@ -336,11 +311,39 @@ namespace Fluxions {
 		invalidate_caches();
 	}
 
+	void RendererContext::loadMaps(const SimpleMapLibrary& maps) {
+		for (auto& [id, image] : maps.c3ubImages()) {
+			if (image.IsCubeMap())
+				textureCubes[id].setTextureCube(image);
+			else
+				texture2Ds[id].setTexture2D(image);
+		}
+		for (auto& [id, image] : maps.c4ubImages()) {
+			if (image.IsCubeMap())
+				textureCubes[id].setTextureCube(image);
+			else
+				texture2Ds[id].setTexture2D(image);
+		}
+		for (auto& [id, image] : maps.c3fImages()) {
+			if (image.IsCubeMap())
+				textureCubes[id].setTextureCube(image);
+			else
+				texture2Ds[id].setTexture2D(image);
+		}
+		for (auto& [id, image] : maps.c4fImages()) {
+			if (image.IsCubeMap())
+				textureCubes[id].setTextureCube(image);
+			else
+				texture2Ds[id].setTexture2D(image);
+		}
+	}
+
 	void RendererContext::makeFramebuffers() {
 		for (auto& [k, fbo] : fbos) {
-			fbo.make();
+			if (fbo.unusable()) {
+				fbo.make();
+			}
 		}
-		invalidate_caches();
 	}
 
 	RendererProgram* RendererContext::getRendererProgram(const std::string& name) {
@@ -755,12 +758,10 @@ namespace Fluxions {
 		bool svalarg1 = k_sval(args, 1, path);
 		if (svalarg1) {
 			if (pcurProgram) {
-				FilePathInfo fpi(path, paths);
-				if (fpi.notFound()) {
-					HFLOGWARN("file '%s' not found", path.c_str());
+				std::string shortestPath = pathFinder.findShortestPath(path);
+				if (shortestPath.empty())
 					return false;
-				}
-				pcurProgram->shaderpaths[path] = { fpi.shortestPath(), GL_VERTEX_SHADER };
+				pcurProgram->shaderpaths[path] = { shortestPath, GL_VERTEX_SHADER };
 				return true;
 			}
 		}
@@ -773,12 +774,10 @@ namespace Fluxions {
 		bool svalarg1 = k_sval(args, 1, path);
 		if (svalarg1) {
 			if (pcurProgram) {
-				FilePathInfo fpi(path, paths);
-				if (fpi.notFound()) {
-					HFLOGWARN("file '%s' not found", path.c_str());
+				std::string shortestPath = pathFinder.findShortestPath(path);
+				if (shortestPath.empty())
 					return false;
-				}
-				pcurProgram->shaderpaths[path] = { fpi.shortestPath(), GL_FRAGMENT_SHADER };
+				pcurProgram->shaderpaths[path] = { shortestPath, GL_FRAGMENT_SHADER };
 				return true;
 			}
 		}
@@ -791,12 +790,10 @@ namespace Fluxions {
 		bool svalarg1 = k_sval(args, 1, path);
 		if (svalarg1) {
 			if (pcurProgram) {
-				FilePathInfo fpi(path, paths);
-				if (fpi.notFound()) {
-					HFLOGWARN("file '%s' not found", path.c_str());
+				std::string shortestPath = pathFinder.findShortestPath(path);
+				if (shortestPath.empty())
 					return false;
-				}
-				pcurProgram->shaderpaths[path] = { fpi.shortestPath(), GL_GEOMETRY_SHADER };
+				pcurProgram->shaderpaths[path] = { shortestPath, GL_GEOMETRY_SHADER };
 				return true;
 			}
 		}
@@ -1016,11 +1013,14 @@ namespace Fluxions {
 				}
 			}
 			else if (arg1 == MAKE) {
+				return true;
 				if (pcurFBO->make()) {
 					HFLOGINFO("FBO '%s' is %s", pcurFBO->name(), pcurFBO->status());
+					return true;
 				}
 				else {
 					HFLOGERROR("FBO '%s' is not complete: %s", pcurFBO->name(), pcurFBO->status());
+					return false;
 				}
 			}
 		}
@@ -1051,12 +1051,11 @@ namespace Fluxions {
 		}
 		if (pcurTexture2D && svalarg1 && svalarg2) {
 			if (arg1 == "map") {
-				FilePathInfo fpi(arg2, paths);
-				if (fpi.notFound()) {
-					HFLOGWARN("file '%s' not found", arg2.c_str());
+				std::string shortestPath = pathFinder.findShortestPath(arg2);
+				if (shortestPath.empty()) {
 					return false;
 				}
-				pcurTexture2D->mappath = fpi.shortestPath();
+				pcurTexture2D->mappath = shortestPath;
 				return true;
 			}
 			else if (arg1 == "uniform") {
@@ -1098,12 +1097,11 @@ namespace Fluxions {
 		}
 		if (pcurTextureCube && svalarg1 && svalarg2) {
 			if (arg1 == "map") {
-				FilePathInfo fpi(arg2, paths);
-				if (fpi.notFound()) {
-					HFLOGWARN("file '%s' not found", arg2.c_str());
+				std::string shortestPath = pathFinder.findShortestPath(arg2);
+				if (shortestPath.empty()) {
 					return false;
 				}
-				pcurTextureCube->mappath = fpi.shortestPath();
+				pcurTextureCube->mappath = shortestPath;
 				return true;
 			}
 			else if (arg1 == "uniform") {

@@ -33,7 +33,7 @@ namespace Fluxions {
 	}
 
 	bool RendererFramebuffer::usable() const {
-		return fbo_status == GL_FRAMEBUFFER_COMPLETE;
+		return !dirty && (fbo_status == GL_FRAMEBUFFER_COMPLETE);
 	}
 
 	void RendererFramebuffer::_setFormats(RenderTarget& rt) {
@@ -87,6 +87,7 @@ namespace Fluxions {
 			rt.format = GL_BGRA;
 			rt.type = GL_UNSIGNED_BYTE;
 		}
+		dirty = true;
 	}
 
 	void RendererFramebuffer::setDefaultParameters() {
@@ -97,6 +98,7 @@ namespace Fluxions {
 		useMultisamples = false;
 		internalformat = GL_RGBA8;
 		currentLayer = 0;
+		dirty = true;
 	}
 
 	void RendererFramebuffer::deleteBuffers() {
@@ -117,7 +119,9 @@ namespace Fluxions {
 			deleteBuffers();
 		}
 
-		FxCreateFramebuffer(&fbo);
+		if (!fbo) {
+			FxCreateFramebuffer(&fbo);
+		}
 
 		for (auto& [type, rt] : renderTargets) {
 			if (rt.target == GL_RENDERBUFFER) {
@@ -227,6 +231,7 @@ namespace Fluxions {
 	void RendererFramebuffer::setMultisamples(GLsizei newSamples, bool newUseMultisamples) {
 		samples = newSamples;
 		useMultisamples = newUseMultisamples;
+		dirty = true;
 	}
 
 	void RendererFramebuffer::setProjectionViewMatrix(const Matrix4f& M) {
